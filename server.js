@@ -22,17 +22,10 @@ app.get("/request", function(req, res) {
     method: "GET"
   },*/
 
-  request({
-    url: 'https://' + config.KEY + ":" + "@" + 'sandbox.feedzai.com/v1/payments',
-    method: "POST",
-    headers: {
-      'Content-Type': "application/json"
-    },
-    body: JSON.stringify({
-      "user_id": "af00-bc14-1245",
-      "amount": 280000
-    })
-  },
+  request(feedzai.scoreAPayment({
+    "user_id": "af00-bc14-1245",
+    "amount": 280000
+  }),
   // request(feedzai.paymentDump(),
   // request(feedzai.historyDump(), // undefined in sandbox
   // request(feedzai.merchantDump(),   // empty in sandbox

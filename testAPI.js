@@ -22,10 +22,10 @@ var FeedZai = function(EnvStr, configObj) {
   var _productionUrl = "api.feedzai.com";
   // Sub query URL list
   // GET
-  var _paymentDumpUrl = "/v1/payments";
-  var _historyDumpUrl = "/v1/history/payments";
-  var _merchantsDumpUrl = "/v1/merchants";
-  var _actionsDumpUrl = "v1/actions";
+  var _paymentUrl = "/v1/payments";
+  var _historyUrl = "/v1/history/payments";
+  var _merchantsUrl = "/v1/merchants";
+  var _actionsUrl = "v1/actions";
 
   /* Initialize */
   var setEnv = function(envStr) {
@@ -52,33 +52,46 @@ var FeedZai = function(EnvStr, configObj) {
   // Construct request object
   var paymentDump = function() {
     return {
-      uri: constructUri(_paymentDumpUrl),
+      uri: constructUri(_paymentUrl),
       method: "GET"
     };
   };
 
   var historyDump = function() {
     return {
-      uri: constructUri(_historyDumpUrl),
+      uri: constructUri(_historyUrl),
       method: "GET"
     };
   };
 
   var merchantDump = function() {
     return {
-      uri: constructUri(_merchantsDumpUrl),
+      uri: constructUri(_merchantsUrl),
       method: "GET"
     };
   };
   
   var actionsDumpUrl = function() {
     return {
-      uri: constructUri(_actionsDumpUrl),
+      uri: constructUri(_actionsUrl),
       method: "GET"
     };
   };
-  
-  var scoreAPayment = function() {
+
+  // Sample user payment object
+  // {
+  //  "user_id": "af00-bc14-1245", // required 
+  //  "amount": 280000             // required
+  // }
+  var scoreAPayment = function(paymentScoreObj) {
+    return {
+      uri: constructUri(_paymentUrl),
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json"
+      },
+      body: JSON.stringify(paymentScoreObj)
+    };
   };
 
   setEnv(EnvStr);
@@ -89,7 +102,9 @@ var FeedZai = function(EnvStr, configObj) {
     constructUri: constructUri,
     paymentDump: paymentDump,
     historyDump: historyDump,
-    merchantDump: merchantDump
+    merchantDump: merchantDump,
+
+    scoreAPayment: scoreAPayment
   };
 };
 
