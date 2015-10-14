@@ -1,3 +1,5 @@
+// TODO: payment/user/merchant filter
+// File streaming upload for potential training capability
 var FeedZai = function(EnvStr, configObj) {
   'use strict';
   if (!configObj) { 
