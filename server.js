@@ -15,32 +15,29 @@ var feedzai = FeedZai.FeedZai('dev', {
 });
 
 app.get("/request", function(req, res) {
-  // make a request
-  /*request({ 
+
+   // make a request
+/*  request({ 
     uri:'https://' + config.KEY + ":" + "@" +'sandbox.feedzai.com/v1/payments',
     method: "GET"
   },*/
+
+  request({
+    url: 'https://' + config.KEY + ":" + "@" + 'sandbox.feedzai.com/v1/payments',
+    method: "POST",
+    headers: {
+      'Content-Type': "application/json"
+    },
+    body: JSON.stringify({
+      "user_id": "af00-bc14-1245",
+      "amount": 280000
+    })
+  },
   // request(feedzai.paymentDump(),
   // request(feedzai.historyDump(), // undefined in sandbox
-  request(feedzai.merchantDump(),   // empty in sandbox
+  // request(feedzai.merchantDump(),   // empty in sandbox
   function(err, response, body) {
-    console.log(feedzai.historyDump());
     if (!err && res.statusCode === 200) {
-      /*
-      var receviedData = JSON.parse(body);
-      console.log(receviedData.length);
-      // res.send(Object.keys(receviedData[0]));
-      // res.send(receviedData[1]);
-      var scoreArr = [];
-      var fraudArr = [];
-      for (var i = 0; i < 10; i++) {
-        if (receviedData[i].score) {
-          scoreArr.push(receviedData[i].score.score);
-          fraudArr.push(receviedData[i].score.likelyFraud);
-        }
-      }
-      // res.send(receviedData[9]);
-      res.send(scoreArr.concat(fraudArr));*/
       res.send(body);
     }
   });

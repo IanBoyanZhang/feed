@@ -21,9 +21,11 @@ var FeedZai = function(EnvStr, configObj) {
   var _sandboxUrl = "sandbox.feedzai.com";
   var _productionUrl = "api.feedzai.com";
   // Sub query URL list
+  // GET
   var _paymentDumpUrl = "/v1/payments";
   var _historyDumpUrl = "/v1/history/payments";
   var _merchantsDumpUrl = "/v1/merchants";
+  var _actionsDumpUrl = "v1/actions";
 
   /* Initialize */
   var setEnv = function(envStr) {
@@ -41,7 +43,7 @@ var FeedZai = function(EnvStr, configObj) {
   };
 
   // appendStr starts with leading slash
-  var construtUri = function(appendStr) {
+  var constructUri = function(appendStr) {
     // TODO: check type and others
     return httpsStr + _username + ":" + _password + "@" + baseURL + appendStr;
   };
@@ -50,23 +52,33 @@ var FeedZai = function(EnvStr, configObj) {
   // Construct request object
   var paymentDump = function() {
     return {
-      uri: construtUri(_paymentDumpUrl),
+      uri: constructUri(_paymentDumpUrl),
       method: "GET"
     };
   };
 
   var historyDump = function() {
     return {
-      uri: construtUri(_historyDumpUrl),
+      uri: constructUri(_historyDumpUrl),
       method: "GET"
     };
   };
 
   var merchantDump = function() {
     return {
-      uri: construtUri(_merchantsDumpUrl),
+      uri: constructUri(_merchantsDumpUrl),
       method: "GET"
     };
+  };
+  
+  var actionsDumpUrl = function() {
+    return {
+      uri: constructUri(_actionsDumpUrl),
+      method: "GET"
+    };
+  };
+  
+  var scoreAPayment = function() {
   };
 
   setEnv(EnvStr);
@@ -74,7 +86,7 @@ var FeedZai = function(EnvStr, configObj) {
     getEnv: getEnv,
     setEnv: ENV,
     getBaseUrl: getBaseUrl,
-    constructUri: construtUri,
+    constructUri: constructUri,
     paymentDump: paymentDump,
     historyDump: historyDump,
     merchantDump: merchantDump
