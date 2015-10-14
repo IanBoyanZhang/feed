@@ -1,10 +1,34 @@
 // load config
-var config = require('.' + 'config.js');
+var config = require('./config.js');
 var express = require('express');
-var app = express();
+var request = require('request');
+var bodyParser = require('body-parser');
 
+var app = express();
+app.use(bodyParser.json({ type: 'application/json' }));
 app.listen(3000);
 
-app.get("/", function(req, res) {
-  res.send(200);
+app.get("/request", function(req, res) {
+  // make a request
+  request({ 
+    uri:'https://' + config.KEY + ":" + "@" +'sandbox.feedzai.com/v1/payments',
+    method: "GET"
+  }, function(err, response, body) {
+    if (!err && res.statusCode === 200) {
+      var receviedData = JSON.parse(body);
+      console.log(receviedData.length);
+      // res.send(Object.keys(receviedData[0]));
+      // res.send(receviedData[1]);
+      var scoreArr = [];
+      var fraudArr = [];
+      for (var i = 0; i < 10; i++) {
+        if (receviedData[i].score) {
+          scoreArr.push(receviedData[i].score.score);
+          fraudArr.push(receviedData[i].score.likelyFraud);
+        }
+      }
+      // res.send(receviedData[9]);
+      res.send(scoreArr.concat(fraudArr));
+    }
+  });
 });

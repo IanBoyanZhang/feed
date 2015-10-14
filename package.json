@@ -11,6 +11,8 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "express": "^4.13.3"
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "request": "^2.65.0"
   }
 }
