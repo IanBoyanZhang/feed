@@ -20,6 +20,8 @@ var FeedZai = function(EnvStr, configObj) {
   var ENV = EnvStr === "prod" ? EnvStr : "dev";
   
   var baseURL;
+  
+  // endpoints
   var _sandboxUrl = "sandbox.feedzai.com";
   var _productionUrl = "api.feedzai.com";
   // Sub query URL list
@@ -97,6 +99,12 @@ var FeedZai = function(EnvStr, configObj) {
   };
 
   setEnv(EnvStr);
+
+  // Detection fraud
+  var checkPaymentScore = function() {
+  
+  };
+
   return {
     getEnv: getEnv,
     setEnv: ENV,

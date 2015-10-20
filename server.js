@@ -24,7 +24,7 @@ app.get("/request", function(req, res) {
 
   request(feedzai.scoreAPayment({
     "user_id": "af00-bc14-1245",
-    "amount": 280000
+    "amount": 1
   }),
   // request(feedzai.paymentDump(),
   // request(feedzai.historyDump(), // undefined in sandbox
